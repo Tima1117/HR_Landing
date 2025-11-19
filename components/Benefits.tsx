@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 const benefits = [
   {
@@ -67,10 +67,7 @@ const benefits = [
 ]
 
 export default function Benefits() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
+  const { ref, isVisible } = useScrollAnimation(0.1)
 
   return (
     <section id="benefits" className="py-20 bg-white">
@@ -78,7 +75,7 @@ export default function Benefits() {
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
@@ -95,7 +92,7 @@ export default function Benefits() {
             <motion.div
               key={index}
               initial={{ opacity: 0, scale: 0.9 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
+              animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300"
             >
@@ -116,7 +113,7 @@ export default function Benefits() {
         {/* Дополнительная секция с цифрами */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           className="mt-20 bg-gradient-to-br from-telegram-blue to-telegram-dark rounded-3xl p-12 text-white"
         >
@@ -148,7 +145,7 @@ export default function Benefits() {
         {/* CTA блок */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 0.8 }}
           className="mt-16 text-center"
         >

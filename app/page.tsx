@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Hero from '@/components/Hero'
 import HowItWorks from '@/components/HowItWorks'
 import Benefits from '@/components/Benefits'
+import FAQ from '@/components/FAQ'
 import Contact from '@/components/Contact'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -21,6 +22,7 @@ export default function Home() {
       <Hero />
       <HowItWorks />
       <Benefits />
+      <FAQ />
       <Contact />
       <Footer />
     </main>

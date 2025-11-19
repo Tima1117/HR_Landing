@@ -1,26 +1,48 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-telegram-blue via-telegram-dark to-gray-900">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#1E9EDB]">
       {/* Анимированный фон */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-telegram-light rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-400 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-20 left-20 w-72 h-72 bg-white rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
       <div className="container mx-auto px-4 py-20 relative z-10">
+        {/* Большой логотип в центре */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <div className="flex items-center justify-center mb-6">
+            <div className="relative w-24 h-24 mr-4">
+              <Image
+                src="/Лого_белое.png"
+                alt="CVortex Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            <h1 className="text-7xl md:text-8xl font-bold text-white">CVortex</h1>
+          </div>
+        </motion.div>
+
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-              Автоматизация найма с помощью <span className="text-telegram-light">ИИ</span>
-            </h1>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+              Автоматизация найма с помощью <span className="text-white">ИИ</span>
+            </h2>
             <p className="text-xl text-gray-200 mb-8">
               Скрининг резюме и первичные интервью в Telegram. 
               Сэкономьте до 80% времени на подборе персонала.
@@ -60,7 +82,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
             className="relative"
           >
             {/* Иллюстрация */}

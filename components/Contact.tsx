@@ -2,13 +2,10 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 export default function Contact() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
+  const { ref, isVisible } = useScrollAnimation(0.1)
 
   const [formData, setFormData] = useState({
     name: '',
@@ -64,7 +61,7 @@ export default function Contact() {
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
@@ -80,7 +77,7 @@ export default function Contact() {
           {/* Контактная информация */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="bg-gradient-to-br from-telegram-blue to-telegram-dark rounded-3xl p-8 md:p-12 text-white h-full">
@@ -147,7 +144,7 @@ export default function Contact() {
           {/* Форма */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <form onSubmit={handleSubmit} className="bg-white rounded-3xl p-8 md:p-12 shadow-xl">

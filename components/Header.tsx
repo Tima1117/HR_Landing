@@ -50,6 +50,12 @@ export default function Header() {
             Преимущества
           </a>
           <a
+            href="#faq"
+            className={`transition-colors hover:text-telegram-blue ${scrolled ? 'text-gray-700' : 'text-white'}`}
+          >
+            FAQ
+          </a>
+          <a
             href="#contact"
             className={`transition-colors hover:text-telegram-blue ${scrolled ? 'text-gray-700' : 'text-white'}`}
           >

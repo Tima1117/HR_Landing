@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 const steps = [
   {
@@ -67,10 +67,7 @@ const steps = [
 ]
 
 export default function HowItWorks() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
+  const { ref, isVisible } = useScrollAnimation(0.1)
 
   return (
     <section id="how-it-works" className="py-20 bg-gray-50">
@@ -78,7 +75,7 @@ export default function HowItWorks() {
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
@@ -95,7 +92,7 @@ export default function HowItWorks() {
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
+              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
             >
@@ -112,7 +109,7 @@ export default function HowItWorks() {
         {/* Визуальная схема */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
-          animate={inView ? { opacity: 1, scale: 1 } : {}}
+          animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           className="mt-16 bg-white rounded-2xl p-8 shadow-xl"
         >
