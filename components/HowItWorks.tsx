@@ -70,7 +70,7 @@ export default function HowItWorks() {
   const { ref, isVisible } = useScrollAnimation(0.1)
 
   return (
-    <section id="how-it-works" className="py-20 bg-gray-50">
+    <section id="how-it-works" className="py-12 sm:py-16 md:py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <motion.div
           ref={ref}
@@ -79,29 +79,29 @@ export default function HowItWorks() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Как работает <span className="gradient-text">CVortex</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
             Простой и понятный процесс от создания вакансии до выбора лучших кандидатов
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {steps.map((step, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+              className="bg-white rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
             >
-              <div className="text-telegram-blue opacity-20 font-bold text-6xl mb-4">
+              <div className="text-telegram-blue opacity-20 font-bold text-5xl md:text-6xl mb-3 md:mb-4">
                 {step.number}
               </div>
-              <div className="text-telegram-blue mb-4">{step.icon}</div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">{step.title}</h3>
-              <p className="text-gray-600 leading-relaxed">{step.description}</p>
+              <div className="text-telegram-blue mb-3 md:mb-4">{step.icon}</div>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 md:mb-3">{step.title}</h3>
+              <p className="text-sm md:text-base text-gray-600 leading-relaxed">{step.description}</p>
             </motion.div>
           ))}
         </div>
@@ -116,14 +116,15 @@ export default function HowItWorks() {
           <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
             Архитектура системы
           </h3>
-          <div className="flex flex-wrap justify-center items-center gap-8">
+          {/* Desktop - горизонтально */}
+          <div className="hidden md:flex justify-center items-center gap-8 max-w-5xl mx-auto">
             <div className="text-center">
               <div className="w-24 h-24 bg-telegram-blue rounded-2xl flex items-center justify-center mb-3 mx-auto">
                 <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
                 </svg>
               </div>
-              <div className="font-semibold text-gray-900">Веб-приложение</div>
+              <div className="font-semibold text-base text-gray-900">Веб-приложение</div>
               <div className="text-sm text-gray-500">Для HR</div>
             </div>
 
@@ -149,6 +150,43 @@ export default function HowItWorks() {
               </div>
               <div className="font-semibold text-gray-900">Telegram Bot</div>
               <div className="text-sm text-gray-500">Для кандидатов</div>
+            </div>
+          </div>
+
+          {/* Mobile - вертикально */}
+          <div className="flex md:hidden flex-col items-center gap-4">
+            <div className="text-center">
+              <div className="w-20 h-20 bg-telegram-blue rounded-2xl flex items-center justify-center mb-3 mx-auto">
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                </svg>
+              </div>
+              <div className="font-semibold text-sm text-gray-900">Веб-приложение</div>
+              <div className="text-xs text-gray-500">Для HR</div>
+            </div>
+
+            <div className="text-telegram-blue text-2xl">↓</div>
+
+            <div className="text-center">
+              <div className="w-20 h-20 bg-purple-500 rounded-2xl flex items-center justify-center mb-3 mx-auto">
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                </svg>
+              </div>
+              <div className="font-semibold text-sm text-gray-900">HR-Service</div>
+              <div className="text-xs text-gray-500">API + ИИ</div>
+            </div>
+
+            <div className="text-telegram-blue text-2xl">↕</div>
+
+            <div className="text-center">
+              <div className="w-20 h-20 bg-telegram-blue rounded-2xl flex items-center justify-center mb-3 mx-auto">
+                <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.654-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+                </svg>
+              </div>
+              <div className="font-semibold text-sm text-gray-900">Telegram Bot</div>
+              <div className="text-xs text-gray-500">Для кандидатов</div>
             </div>
           </div>
         </motion.div>

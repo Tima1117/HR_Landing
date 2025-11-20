@@ -4,12 +4,12 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-gray-900 text-white py-12">
+    <footer className="bg-gray-900 text-white py-8 sm:py-10 md:py-12">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-6 sm:mb-8">
           {/* О компании */}
-          <div className="md:col-span-2">
-            <div className="flex items-center space-x-3 mb-4">
+          <div className="sm:col-span-2 md:col-span-2">
+            <div className="flex items-center space-x-2 sm:space-x-3 mb-4">
               <div className="relative w-10 h-10">
                 <Image
                   src="/Лого_белое.png"
@@ -18,9 +18,9 @@ export default function Footer() {
                   className="object-contain"
                 />
               </div>
-              <span className="text-2xl font-bold">CVortex</span>
+              <span className="text-xl sm:text-2xl font-bold">CVortex</span>
             </div>
-            <p className="text-gray-400 mb-4">
+            <p className="text-sm sm:text-base text-gray-400 mb-4">
               Автоматизация первичного найма с помощью искусственного интеллекта. 
               Скрининг резюме и интервью в Telegram для стартапов и малого бизнеса.
             </p>
@@ -50,8 +50,8 @@ export default function Footer() {
 
           {/* Навигация */}
           <div>
-            <h3 className="font-bold text-lg mb-4">Навигация</h3>
-            <ul className="space-y-2">
+            <h3 className="font-bold text-base sm:text-lg mb-3 sm:mb-4">Навигация</h3>
+            <ul className="space-y-1 sm:space-y-2 text-sm sm:text-base">
               <li>
                 <a href="#how-it-works" className="text-gray-400 hover:text-white transition-colors">
                   Как работает
@@ -72,7 +72,7 @@ export default function Footer() {
 
           {/* Контакты */}
           <div>
-            <h3 className="font-bold text-lg mb-4">Контакты</h3>
+            <h3 className="font-bold text-base sm:text-lg mb-3 sm:mb-4">Контакты</h3>
             <ul className="space-y-2 text-gray-400">
               <li>
                 <a href="mailto:tima_grachev@cvortex.com" className="hover:text-white transition-colors">
@@ -94,12 +94,12 @@ export default function Footer() {
         </div>
 
         {/* Нижняя часть */}
-        <div className="border-t border-gray-800 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-gray-400 text-sm">
+        <div className="border-t border-gray-800 pt-6 sm:pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
+            <p className="text-gray-400 text-xs sm:text-sm">
               © {currentYear} CVortex. Все права защищены.
             </p>
-            <div className="flex space-x-6 text-sm text-gray-400">
+            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6 text-xs sm:text-sm text-gray-400 text-center">
               <a href="#" className="hover:text-white transition-colors">
                 Политика конфиденциальности
               </a>

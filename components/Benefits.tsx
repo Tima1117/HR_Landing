@@ -70,7 +70,7 @@ export default function Benefits() {
   const { ref, isVisible } = useScrollAnimation(0.1)
 
   return (
-    <section id="benefits" className="py-20 bg-white">
+    <section id="benefits" className="py-12 sm:py-16 md:py-20 bg-white">
       <div className="container mx-auto px-4">
         <motion.div
           ref={ref}
@@ -79,15 +79,15 @@ export default function Benefits() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Преимущества <span className="gradient-text">CVortex</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
             Комплексное решение для автоматизации найма, разработанное специально для стартапов и малого бизнеса
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {benefits.map((benefit, index) => (
             <motion.div
               key={index}
@@ -100,11 +100,11 @@ export default function Benefits() {
               <div className={`absolute inset-0 bg-gradient-to-br ${benefit.color} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-300`}></div>
               
               <div className="relative z-10">
-                <div className={`bg-gradient-to-br ${benefit.color} text-white w-20 h-20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`bg-gradient-to-br ${benefit.color} text-white w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform duration-300`}>
                   {benefit.icon}
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">{benefit.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{benefit.description}</p>
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 md:mb-3">{benefit.title}</h3>
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed">{benefit.description}</p>
               </div>
             </motion.div>
           ))}
@@ -124,20 +124,20 @@ export default function Benefits() {
           
           <div className="grid md:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-5xl font-bold mb-2">10x</div>
-              <div className="text-blue-100">Быстрее традиционного найма</div>
+              <div className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">10x</div>
+              <div className="text-sm sm:text-base text-blue-100">Быстрее традиционного найма</div>
             </div>
             <div className="text-center">
-              <div className="text-5xl font-bold mb-2">95%</div>
-              <div className="text-blue-100">Точность скрининга</div>
+              <div className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">95%</div>
+              <div className="text-sm sm:text-base text-blue-100">Точность скрининга</div>
             </div>
             <div className="text-center">
-              <div className="text-5xl font-bold mb-2">80%</div>
-              <div className="text-blue-100">Экономия бюджета на HR</div>
+              <div className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">80%</div>
+              <div className="text-sm sm:text-base text-blue-100">Экономия бюджета на HR</div>
             </div>
             <div className="text-center">
-              <div className="text-5xl font-bold mb-2">24/7</div>
-              <div className="text-blue-100">Непрерывная работа</div>
+              <div className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">24/7</div>
+              <div className="text-sm sm:text-base text-blue-100">Непрерывная работа</div>
             </div>
           </div>
         </motion.div>

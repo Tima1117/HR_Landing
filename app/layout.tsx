@@ -12,6 +12,12 @@ export const metadata: Metadata = {
   creator: 'CVortex',
   publisher: 'CVortex',
   metadataBase: new URL('https://cvortex-landing.vercel.app'),
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+  },
   openGraph: {
     type: 'website',
     locale: 'ru_RU',

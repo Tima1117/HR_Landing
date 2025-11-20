@@ -12,16 +12,16 @@ export default function Hero() {
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
-      <div className="container mx-auto px-4 py-20 relative z-10">
+      <div className="container mx-auto px-4 py-16 sm:py-20 relative z-10">
         {/* Большой логотип в центре */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-16"
         >
-          <div className="flex items-center justify-center mb-6">
-            <div className="relative w-24 h-24 mr-4">
+          <div className="flex items-center justify-center mb-4 sm:mb-6">
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mr-3 sm:mr-4">
               <Image
                 src="/Лого_белое.png"
                 alt="CVortex Logo"
@@ -30,51 +30,51 @@ export default function Hero() {
                 priority
               />
             </div>
-            <h1 className="text-7xl md:text-8xl font-bold text-white">CVortex</h1>
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white">CVortex</h1>
           </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 leading-tight">
               Автоматизация найма с помощью <span className="text-white">ИИ</span>
             </h2>
-            <p className="text-xl text-gray-200 mb-8">
+            <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8">
               Скрининг резюме и первичные интервью в Telegram. 
               Сэкономьте до 80% времени на подборе персонала.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <a
                 href="#contact"
-                className="bg-white text-telegram-blue px-8 py-4 rounded-lg btn-hover font-semibold text-lg text-center"
+                className="bg-white text-telegram-blue px-6 sm:px-8 py-3 sm:py-4 rounded-lg btn-hover font-semibold text-base sm:text-lg text-center"
               >
                 Начать бесплатно
               </a>
               <a
                 href="#how-it-works"
-                className="border-2 border-white text-white px-8 py-4 rounded-lg btn-hover font-semibold text-lg text-center hover:bg-white hover:text-telegram-blue transition-colors"
+                className="border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg btn-hover font-semibold text-base sm:text-lg text-center hover:bg-white hover:text-telegram-blue transition-colors"
               >
                 Узнать больше
               </a>
             </div>
             
             {/* Статистика */}
-            <div className="grid grid-cols-3 gap-6 mt-12">
+            <div className="grid grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-12">
               <div className="text-center">
-                <div className="text-3xl font-bold text-white">80%</div>
-                <div className="text-sm text-gray-300 mt-1">Экономия времени</div>
+                <div className="text-2xl sm:text-3xl font-bold text-white">80%</div>
+                <div className="text-xs sm:text-sm text-gray-300 mt-1">Экономия времени</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-white">24/7</div>
-                <div className="text-sm text-gray-300 mt-1">Работа бота</div>
+                <div className="text-2xl sm:text-3xl font-bold text-white">24/7</div>
+                <div className="text-xs sm:text-sm text-gray-300 mt-1">Работа бота</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-white">95%</div>
-                <div className="text-sm text-gray-300 mt-1">Точность анализа</div>
+                <div className="text-2xl sm:text-3xl font-bold text-white">95%</div>
+                <div className="text-xs sm:text-sm text-gray-300 mt-1">Точность анализа</div>
               </div>
             </div>
           </motion.div>
@@ -83,10 +83,10 @@ export default function Hero() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="relative"
+            className="relative hidden md:block"
           >
             {/* Иллюстрация */}
-            <div className="relative bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
+            <div className="relative bg-white/10 backdrop-blur-lg rounded-2xl p-6 md:p-8 border border-white/20">
               <div className="space-y-4">
                 {/* Имитация интерфейса бота */}
                 <div className="bg-white rounded-lg p-4 shadow-lg animate-slide-up">

@@ -41,7 +41,7 @@ export default function FAQ() {
   }
 
   return (
-    <section id="faq" className="py-20 bg-gray-50">
+    <section id="faq" className="py-12 sm:py-16 md:py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <motion.div
           ref={ref}
@@ -50,10 +50,10 @@ export default function FAQ() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Часто задаваемые <span className="gradient-text">вопросы</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
             Ответы на популярные вопросы о работе с CVortex
           </p>
         </motion.div>
@@ -69,9 +69,9 @@ export default function FAQ() {
             >
               <button
                 onClick={() => toggleFAQ(faq.id)}
-                className="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
+                className="w-full px-6 sm:px-8 py-4 sm:py-6 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
               >
-                <span className="text-lg font-semibold text-gray-900 pr-8">
+                <span className="text-base sm:text-lg font-semibold text-gray-900 pr-4 sm:pr-8">
                   {faq.question}
                 </span>
                 <motion.div
@@ -104,7 +104,7 @@ export default function FAQ() {
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
-                    <div className="px-8 pb-6 text-gray-600 leading-relaxed">
+                    <div className="px-6 sm:px-8 pb-4 sm:pb-6 text-sm sm:text-base text-gray-600 leading-relaxed">
                       {faq.answer}
                     </div>
                   </motion.div>
