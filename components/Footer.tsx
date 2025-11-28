@@ -37,7 +37,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="mailto:tima_grachev@cvortex.com"
+                href="mailto:a_rogovoy@bk.ru"
                 className="w-10 h-10 bg-telegram-blue rounded-lg flex items-center justify-center hover:bg-telegram-light transition-colors"
                 aria-label="Email"
               >
@@ -75,8 +75,8 @@ export default function Footer() {
             <h3 className="font-bold text-base sm:text-lg mb-3 sm:mb-4">Контакты</h3>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <a href="mailto:tima_grachev@cvortex.com" className="hover:text-white transition-colors">
-                  tima_grachev@cvortex.com
+                <a href="mailto:a_rogovoy@bk.ru" className="hover:text-white transition-colors">
+                  a_rogovoy@bk.ru
                 </a>
               </li>
               <li>

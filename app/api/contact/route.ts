@@ -32,7 +32,7 @@ export async function POST(request: Request) {
 
     // Пример данных для отправки
     const emailData = {
-      to: 'tima_grachev@cvortex.com',
+      to: 'a_rogovoy@bk.ru',
       subject: `Новая заявка от ${name} (${company})`,
       html: `
         <h2>Новая заявка с сайта CVortex</h2>
