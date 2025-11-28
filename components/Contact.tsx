@@ -96,8 +96,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <div className="font-semibold mb-1">Email</div>
-                    <a href="mailto:tima_grachev@cvortex.com" className="text-blue-100 hover:text-white transition-colors">
-                      tima_grachev@cvortex.com
+                    <a href="mailto:a_rogovoy@bk.ru" className="text-blue-100 hover:text-white transition-colors">
+                      a_rogovoy@bk.ru
                     </a>
                   </div>
                 </div>
