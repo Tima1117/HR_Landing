@@ -20,7 +20,14 @@ export function initScroll() {
   gsap.ticker.add(tick)
   gsap.ticker.lagSmoothing(0)
 
+  // Шрифты грузятся асинхронно и сдвигают вёрстку. Без пересчёта ScrollTrigger
+  // держит замеры от первого кадра, и закреплённая лента едет не туда.
+  const refresh = () => ScrollTrigger.refresh()
+  document.fonts?.ready.then(refresh)
+  addEventListener('load', refresh)
+
   return () => {
+    removeEventListener('load', refresh)
     gsap.ticker.remove(tick)
     lenis.destroy()
     ScrollTrigger.getAll().forEach((t) => t.kill())
@@ -51,8 +58,12 @@ export function scrubWords(el: HTMLElement | null) {
 /* Горизонтальная лента в закреплённой секции. */
 export function pinnedTrack(section: HTMLElement | null, track: HTMLElement | null) {
   if (!section || !track || still() || innerWidth < 900) return
-  const shift = () => track.scrollWidth - innerWidth + 80
-  gsap.to(track, { x: () => -shift(), ease: 'none',
+  const shift = () => Math.max(0, track.scrollWidth - innerWidth + 80)
+  // fromTo с явным x:0, а не to: иначе GSAP берёт за старт текущее значение,
+  // и при неверном замере лента приезжает уже прокрученной — видны сразу
+  // последние карточки, а первые обрезаны слева.
+  gsap.fromTo(track, { x: 0 }, {
+    x: () => -shift(), ease: 'none', immediateRender: false,
     scrollTrigger: { trigger: section, start: 'top top', end: () => '+=' + shift(),
       pin: true, scrub: 0.8, invalidateOnRefresh: true, anticipatePin: 1 } })
 }
