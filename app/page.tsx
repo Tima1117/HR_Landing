@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
-import { Reveal, GridGlow, Glow, Counter } from '@/components/ui'
+import { Reveal, GridGlow, Glow, Counter, Magnetic, Scramble, ScrollMarquee } from '@/components/ui'
 import ChatDemo from '@/components/ChatDemo'
 import { initScroll, parallax, scrubWords, pinnedTrack } from '@/lib/scroll'
 import { CONTACTS, STEPS, BENEFITS, FAQ, METRICS } from '@/lib/data'
@@ -85,12 +85,12 @@ function Hero() {
           </Reveal>
           <Reveal delay={0.15}>
             <div className="mt-9 flex flex-wrap gap-3">
-              <a href="#contact" className="btn btn-solid">
+              <Magnetic href="#contact" className="btn btn-solid">
                 Попробовать бесплатно
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M5 12h14M13 6l6 6-6 6" /></svg>
-              </a>
-              <a href="#how" className="btn btn-ghost">Как это работает</a>
+              </Magnetic>
+              <Magnetic href="#how" className="btn btn-ghost">Как это работает</Magnetic>
             </div>
           </Reveal>
           <Reveal delay={0.2}>
@@ -147,17 +147,25 @@ function How() {
 }
 
 /* ───────────────────────── возможности: бенто ───────────────────────── */
+const SPANS = [
+  'md:col-span-4', 'md:col-span-2',
+  'md:col-span-2', 'md:col-span-2', 'md:col-span-2',
+  'md:col-span-6',
+]
 function Benefits() {
   return (
     <section id="benefits" className="py-24">
       <div className="shell">
         <Reveal>
           <div className="eyebrow mb-6">Возможности</div>
-          <h2 className="h-sec max-w-[18ch]">Что это даёт команде</h2>
+          <h2 className="h-sec max-w-[18ch]"><Scramble text="Что это даёт команде" /></h2>
         </Reveal>
-        <div className="mt-12 grid gap-4 md:grid-cols-3">
+        {/* Сетка на 6 колонок: 4+2 / 2+2+2 / 6. Прежний вариант из трёх колонок
+            с двумя широкими карточками давал 8 ячеек — ряды не сходились и
+            справа внизу зияла дыра. */}
+        <div className="mt-12 grid gap-4 md:grid-cols-6">
           {BENEFITS.map((b, i) => (
-            <Reveal key={b.t} delay={0.05 * (i % 3)} className={b.wide ? 'md:col-span-2' : ''}>
+            <Reveal key={b.t} delay={0.04 * (i % 3)} className={SPANS[i]}>
               <Glow className="h-full p-8">
                 <h3 className="text-xl font-semibold">{b.t}</h3>
                 <p className="mt-3 text-[15px] leading-relaxed text-slate-400">{b.d}</p>
@@ -178,7 +186,7 @@ function Faq() {
       <div className="shell max-w-[880px]">
         <Reveal>
           <div className="eyebrow mb-6">Вопросы</div>
-          <h2 className="h-sec">Часто спрашивают</h2>
+          <h2 className="h-sec"><Scramble text="Часто спрашивают" /></h2>
         </Reveal>
         <div className="mt-10">
           {FAQ.map((f, i) => (
@@ -218,7 +226,7 @@ function Contact() {
           <div className="grid gap-12 lg:grid-cols-[1fr_.85fr]">
             <div>
               <div className="eyebrow mb-6">Связаться</div>
-              <h2 className="h-sec max-w-[16ch]">Покажем на ваших вакансиях</h2>
+              <h2 className="h-sec max-w-[16ch]"><Scramble text="Покажем на ваших вакансиях" /></h2>
               <p className="mt-5 max-w-[42ch] leading-relaxed text-slate-400">
                 Оставьте контакты — соберём демо под вашу позицию и покажем, как ИИ отсеивает
                 кандидатов по вашим критериям.
@@ -277,6 +285,12 @@ export default function Page() {
       <Header />
       <main>
         <Hero />
+        <div className="border-y border-white/[.07] bg-white/[.015] py-6">
+          <ScrollMarquee baseVelocity={-2.4}
+            className="mr-10 text-[clamp(20px,3.4vw,42px)] font-bold tracking-tight text-white/[.09]">
+            {'Скрининг резюме · Автоинтервью · Оценка ответов · Отчёт в CMS · Telegram-бот · '}
+          </ScrollMarquee>
+        </div>
         <How />
         <Benefits />
         <Faq />

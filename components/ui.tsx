@@ -1,7 +1,10 @@
 'use client'
 
 import { useEffect, useRef, useState, ReactNode } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import {
+  motion, useReducedMotion, useMotionValue, useScroll,
+  useSpring, useTransform, useVelocity, useAnimationFrame,
+} from 'framer-motion'
 
 /* Появление при скролле.
    Наблюдателем управляет сам framer (whileInView) — ручная связка useInView +
@@ -130,4 +133,104 @@ export function Counter({ to, suffix = '' }: { to: number; suffix?: string }) {
   }, [to, still])
 
   return <span ref={ref}>{n}{suffix}</span>
+}
+
+/* Кнопка, тянущаяся к курсору. */
+export function Magnetic({
+  children, className = '', href,
+}: { children: ReactNode; className?: string; href: string }) {
+  const ref = useRef<HTMLAnchorElement>(null)
+  const [d, setD] = useState({ x: 0, y: 0 })
+  const still = useReducedMotion()
+  return (
+    <motion.a
+      ref={ref} href={href} className={className}
+      onMouseMove={(e) => {
+        if (still || !ref.current) return
+        const r = ref.current.getBoundingClientRect()
+        setD({ x: (e.clientX - (r.left + r.width / 2)) * 0.2,
+               y: (e.clientY - (r.top + r.height / 2)) * 0.32 })
+      }}
+      onMouseLeave={() => setD({ x: 0, y: 0 })}
+      animate={d}
+      transition={{ type: 'spring', stiffness: 250, damping: 17, mass: 0.4 }}
+    >
+      {children}
+    </motion.a>
+  )
+}
+
+/* Текст, «расшифровывающийся» из шума при появлении.
+   Для продукта про ИИ это читается как обработка данных, а не как трюк.
+   Начинаем со случайных глифов и за несколько кадров сходимся к исходной
+   строке. Итоговый текст всегда лежит в DOM для доступности и поиска. */
+const GLYPHS = '01#$%&@ДЖИНФКЛРСТ<>/\\'
+export function Scramble({ text, className = '' }: { text: string; className?: string }) {
+  const still = useReducedMotion()
+  const [out, setOut] = useState(still ? text : '')
+  const ref = useRef<HTMLSpanElement>(null)
+  const fired = useRef(false)
+
+  useEffect(() => {
+    if (still || !ref.current) return
+    const io = new IntersectionObserver((es) => {
+      if (!es[0].isIntersecting || fired.current) return
+      fired.current = true
+      let frame = 0
+      const id = setInterval(() => {
+        frame++
+        const done = Math.floor(frame / 2)
+        setOut(
+          text.split('').map((ch, i) => {
+            if (i < done || ch === ' ') return ch
+            return GLYPHS[Math.floor(Math.random() * GLYPHS.length)]
+          }).join('')
+        )
+        if (done >= text.length) { setOut(text); clearInterval(id) }
+      }, 34)
+    }, { threshold: 0.4 })
+    io.observe(ref.current)
+    return () => io.disconnect()
+  }, [text, still])
+
+  return (
+    <span ref={ref} className={className}>
+      <span aria-hidden="true">{out || text}</span>
+      <span className="sr-only">{text}</span>
+    </span>
+  )
+}
+
+/* Лента, скорость и направление которой следуют за скоростью прокрутки. */
+export function ScrollMarquee({
+  children, baseVelocity = -3, className = '',
+}: { children: string; baseVelocity?: number; className?: string }) {
+  const baseX = useMotionValue(0)
+  const still = useReducedMotion()
+  const { scrollY } = useScroll()
+  const smooth = useSpring(useVelocity(scrollY), { damping: 50, stiffness: 400 })
+  const factor = useTransform(smooth, [0, 1000], [0, 2], { clamp: false })
+  // Зацикливаем сдвиг в пределах трети: содержимое продублировано трижды.
+  const x = useTransform(baseX, (v) => `${((v % 33.34) - 33.34) % 33.34}%`)
+  const dir = useRef(1)
+
+  useAnimationFrame((t, delta) => {
+    if (still) return
+    let move = dir.current * baseVelocity * (delta / 1000)
+    const f = factor.get()
+    if (f < 0) dir.current = -1
+    else if (f > 0) dir.current = 1
+    move += dir.current * move * f
+    baseX.set(baseX.get() + move)
+  })
+
+  return (
+    <div className="flex flex-nowrap overflow-hidden whitespace-nowrap">
+      <motion.div className="flex flex-nowrap whitespace-nowrap" style={{ x }}>
+        {[0, 1, 2].map((i) => (
+          <span key={i} className={className} aria-hidden={i > 0}>{children}</span>
+        ))}
+      </motion.div>
+    </div>
+  )
 }
