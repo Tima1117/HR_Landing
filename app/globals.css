@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-ink text-slate-100 antialiased;
+    font-family: var(--font-sans), system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+  ::selection { @apply bg-iris text-white; }
+}
+
+@layer components {
+  .shell { @apply w-[min(1200px,92vw)] mx-auto; }
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5 rounded-full border border-iris/[.25]
+           bg-iris/[.08] px-3.5 py-1.5 text-[11px] font-semibold uppercase
+           tracking-[.18em] text-iris-soft;
+  }
+  .btn {
+    @apply inline-flex items-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold
+           transition-all duration-300;
+  }
+  .btn-solid {
+    @apply bg-iris text-white shadow-[0_10px_34px_-8px_rgba(99,102,241,.7)]
+           hover:bg-indigo-400 hover:-translate-y-0.5;
+  }
+  .btn-ghost {
+    @apply border border-white/[.12] bg-white/[.03] hover:border-iris/[.45] hover:text-iris-soft;
+  }
+  .h-sec { @apply text-[clamp(30px,4.4vw,56px)] font-bold leading-[1.05] tracking-[-.02em]; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
