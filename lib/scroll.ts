@@ -55,15 +55,49 @@ export function scrubWords(el: HTMLElement | null) {
     scrollTrigger: { trigger: el, start: 'top 85%', end: 'bottom 55%', scrub: 0.5 } })
 }
 
-/* Горизонтальная лента в закреплённой секции. */
+/* Горизонтальная лента в закреплённой секции.
+
+   Дважды ломалось, поэтому подробно. Симптом был такой: подходишь к секции —
+   лента уже прокручена до конца и обратно не отматывается.
+
+   Причина. Длина прокрутки считается как `scrollWidth - innerWidth`. Если
+   замерить это до того, как применилась вёрстка и догрузились шрифты, выходит
+   ноль или отрицательное число. Тогда `end: "+=0"` — триггер нулевой длины:
+   прогресс мгновенно становится единицей и назад уже не идёт.
+
+   Лечение:
+   1. Ставим триггер только после `fonts.ready` и одного кадра — к этому моменту
+      ширины настоящие.
+   2. Если прокручивать нечего (лента уже помещается), триггер НЕ создаём вовсе,
+      а делаем ленту обычной горизонтальной прокруткой — работает всегда.
+   3. Пересчёт при ресайзе и обновлении. */
 export function pinnedTrack(section: HTMLElement | null, track: HTMLElement | null) {
-  if (!section || !track || still() || innerWidth < 900) return
-  const shift = () => Math.max(0, track.scrollWidth - innerWidth + 80)
-  // fromTo с явным x:0, а не to: иначе GSAP берёт за старт текущее значение,
-  // и при неверном замере лента приезжает уже прокрученной — видны сразу
-  // последние карточки, а первые обрезаны слева.
-  gsap.fromTo(track, { x: 0 }, {
-    x: () => -shift(), ease: 'none', immediateRender: false,
-    scrollTrigger: { trigger: section, start: 'top top', end: () => '+=' + shift(),
-      pin: true, scrub: 0.8, invalidateOnRefresh: true, anticipatePin: 1 } })
+  if (!section || !track || still() || innerWidth < 900) {
+    if (track) track.classList.add('overflow-x-auto')   // запасной режим
+    return
+  }
+
+  const setup = () => {
+    const shift = track.scrollWidth - innerWidth + 80
+    if (shift < 80) {
+      // Прокручивать нечего — пин создаст мёртвую зону. Оставляем обычную ленту.
+      track.classList.add('overflow-x-auto')
+      return
+    }
+    gsap.fromTo(track, { x: 0 }, {
+      x: () => -(track.scrollWidth - innerWidth + 80),
+      ease: 'none', immediateRender: false,
+      scrollTrigger: {
+        trigger: section, start: 'top top',
+        end: () => '+=' + (track.scrollWidth - innerWidth + 80),
+        pin: true, scrub: 0.8, invalidateOnRefresh: true, anticipatePin: 1,
+      },
+    })
+    ScrollTrigger.refresh()
+  }
+
+  // Ждём шрифты и один кадр: до этого ширины ещё не настоящие.
+  const boot = () => requestAnimationFrame(setup)
+  if (document.fonts?.status === 'loaded') boot()
+  else document.fonts?.ready.then(boot) ?? boot()
 }
