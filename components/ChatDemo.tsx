@@ -21,8 +21,9 @@ export default function ChatDemo() {
 
   useEffect(() => {
     if (still || !boxRef.current) return
-    const io = new IntersectionObserver((es) => {
-      if (!es[0].isIntersecting || started.current) return
+
+    const begin = () => {
+      if (started.current) return
       started.current = true
       let i = 0
       const tick = () => {
@@ -41,9 +42,15 @@ export default function ChatDemo() {
         }, isBot ? 900 : 300)
       }
       tick()
-    }, { threshold: 0.3 })
+    }
+
+    const io = new IntersectionObserver((es) => { if (es[0].isIntersecting) begin() },
+      { threshold: 0.25 })
     io.observe(boxRef.current)
-    return () => io.disconnect()
+    // Демо — центр лендинга, пустое окно чата хуже отсутствия анимации.
+    // Наблюдателю не доверяем: через 1.2 секунды запускаем в любом случае.
+    const failsafe = setTimeout(begin, 1200)
+    return () => { io.disconnect(); clearTimeout(failsafe) }
   }, [still])
 
   // Скроллим ленту к последнему сообщению

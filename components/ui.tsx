@@ -108,31 +108,13 @@ export function Glow({ children, className = '' }: { children: ReactNode; classN
   )
 }
 
-/* Счётчик. Анимируем только значения от 10 — на мелких числах промежуточный
-   кадр читается как настоящая цифра (уже стреляло на прошлом лендинге). */
+/* Метрика.
+   Отсчёт вверх УБРАН намеренно. Он стартует с нуля и ждёт наблюдателя — если
+   тот не сработает или кадр придётся на начало, посетитель видит «0%» вместо
+   «80%» и читает это как факт о продукте. Цифра важнее эффекта: показываем
+   значение сразу, а оживляет его общий Reveal. */
 export function Counter({ to, suffix = '' }: { to: number; suffix?: string }) {
-  const still = useReducedMotion()
-  const [n, setN] = useState(to < 10 || still ? to : 0)
-  const ref = useRef<HTMLSpanElement>(null)
-  const fired = useRef(false)
-
-  useEffect(() => {
-    if (to < 10 || still || !ref.current) return
-    const io = new IntersectionObserver((es) => {
-      if (!es[0].isIntersecting || fired.current) return
-      fired.current = true
-      let cur = 0
-      const step = Math.ceil(to / 26)
-      const id = setInterval(() => {
-        cur += step
-        if (cur >= to) { setN(to); clearInterval(id) } else setN(cur)
-      }, 26)
-    }, { threshold: 0.5 })
-    io.observe(ref.current)
-    return () => io.disconnect()
-  }, [to, still])
-
-  return <span ref={ref}>{n}{suffix}</span>
+  return <span>{to}{suffix}</span>
 }
 
 /* Кнопка, тянущаяся к курсору. */
